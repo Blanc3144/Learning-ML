@@ -34,7 +34,12 @@ print("Actual:", y_test.values)
 #print("Model Coefficients:", model.coef_)
 #print("Model Intercept:", model.intercept_)
 
-errors  = abs(y_test.values - predicted_salary)
-mae = errors.mean()
+#errors  = abs(y_test.values - predicted_salary)
+#mae = errors.mean()
+#print("errors:", errors)
+#print("MAE:", mae)
+errors = y_test.values - predicted_salary
+squared_errors = errors ** 2
+mse = squared_errors.mean()
 print("errors:", errors)
-print("MAE:", mae)
+print("MSE:", mse)
