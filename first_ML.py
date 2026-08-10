@@ -43,3 +43,5 @@ squared_errors = errors ** 2
 mse = squared_errors.mean()
 print("errors:", errors)
 print("MSE:", mse)
+
+#Using scikit-learn's mean_squared_error function
