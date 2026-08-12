@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
 
 model = LinearRegression()
 
@@ -12,11 +13,12 @@ data = {
                58000, 62000, 72000, 80000, 90000]
 }
 
-df = pd.DataFrame(data)
+#df = pd.DataFrame(data)
+df = pd.read_csv(r"C:\Users\Noir\Downloads\BostonHousing.csv")
 
 print(df)
-x = df[["Experience", "Education", "Age"]]
-y = df["Salary"]
+x = df[["crim", "nox","rm", "age","dis"]]
+y = df["tax"]
 
 x_train, x_test, y_train, y_test = train_test_split(
     x,
@@ -27,9 +29,9 @@ x_train, x_test, y_train, y_test = train_test_split(
 
 model.fit(x_train, y_train)
 
-new_person = pd.DataFrame([[6, 16, 29]], columns=["Experience", "Education", "Age"])
-predicted_salary = model.predict(x_test)
-print("predicted:", predicted_salary)
+#new_person = pd.DataFrame([[6, 16, 29]], columns=["Experience", "Education", "Age"])
+predicted_tax = model.predict(x_test)
+print("predicted:", predicted_tax)
 print("Actual:", y_test.values)
 #print("Model Coefficients:", model.coef_)
 #print("Model Intercept:", model.intercept_)
@@ -38,10 +40,12 @@ print("Actual:", y_test.values)
 #mae = errors.mean()
 #print("errors:", errors)
 #print("MAE:", mae)
-errors = y_test.values - predicted_salary
+errors = y_test.values - predicted_tax
 squared_errors = errors ** 2
 mse = squared_errors.mean()
 print("errors:", errors)
 print("MSE:", mse)
 
 #Using scikit-learn's mean_squared_error function
+mse_sklearn = mean_squared_error(y_test, predicted_tax)
+print("MSE (scikit-learn):", mse_sklearn)
